@@ -1,0 +1,20 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'UnifrakturCook';
+        src: url('data:font/woff2;base64,[BASE64-KODEN-FOR-UNIFRAKTURCOOK]') format('woff2');
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: 'Playfair Display';
+        src: url('data:font/woff2;base64,[BASE64-KODEN-FOR-PLAYFAIR-DISPLAY]') format('woff2');
+        font-weight: 400;
+      }
+      .title { font-family: 'UnifrakturCook', cursive; }
+      .subtitle { font-family: 'Playfair Display', serif; }
+    </style>
+  </defs>
+  <text x="200" y="90" class="title" font-size="80" text-anchor="middle" fill="black">Prasis</text>
+  <text x="200" y="140" class="subtitle" font-size="24" text-anchor="middle" fill="#555">Auction house</text>
+</svg>
