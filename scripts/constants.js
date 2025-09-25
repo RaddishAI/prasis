@@ -11,10 +11,66 @@
  *
  * @constant {string}
  */
-const BASE_API_URL = "https://vs.api.noroff.dev";
+const BASE_API_URL = "https://v2.api.noroff.dev";
 
 /**
  * !!!
  * Auth endpooints
  * !!!
  */
+
+/**
+ * URL for user registration
+ *
+ * @constant {string}
+ */
+export const REGISTER_API_URL = `${BASE_API_URL}/auth/register`;
+
+/**
+ * URL for user log-in
+ *
+ * @constant {string}
+ */
+
+export const LOGIN_API_URL = `${BASE_API_URL}/auth/login`;
+
+/**
+ * URL for creating an API KEY
+ *
+ * @constant {string}
+ */
+
+export const CREATE_API_KEY = `${BASE_API_URL}/auth/create-api-key`;
+
+/**
+ * !!!
+ * Auction house endpoints
+ * !!!
+ */
+
+/**
+ * URL for auction house listings
+ *
+ * @constant {string}
+ */
+export const LISTINGS_API_URL = `${BASE_API_URL}/auction/listings`;
+
+/**
+ * !!!
+ * Local storage keys
+ * !!!
+ */
+
+/**
+ * LocalStorage key for storing access tokens
+ *
+ * @constant {string}
+ */
+export const ACCESS_TOKEN_KEY = "accessToken";
+
+/**
+ * LocalStorage key for storing the Noroff API key
+ *
+ * @constant {string}
+ */
+export const API_KEY_STORAGE = "X-Noroff-API-Key";
