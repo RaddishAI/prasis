@@ -40,7 +40,7 @@ export const LOGIN_API_URL = `${BASE_API_URL}/auth/login`;
  * @constant {string}
  */
 
-export const CREATE_API_KEY = `${BASE_API_URL}/auth/create-api-key`;
+export const CREATE_API_KEY_URL = `${BASE_API_URL}/auth/create-api-key`;
 
 /**
  * !!!
@@ -74,3 +74,25 @@ export const ACCESS_TOKEN_KEY = "accessToken";
  * @constant {string}
  */
 export const API_KEY_STORAGE = "X-Noroff-API-Key";
+
+/**
+ * !!!
+ * Cart storage
+ * !!!
+ */
+
+/**
+ * LocalStorage key for tha shopping cart.
+ * Stored as JSON array of items.
+ * [ { listingId: "abc123", qty: 2 }, ... ]
+ * @constant {string}
+ */
+
+export const CART_STORAGE_KEY = "presis:cart";
+
+/**
+ * Custom event name when cart changes.
+ * @constant {string}
+ */
+
+export const CART_EVENT = "prasis:cart-change";
