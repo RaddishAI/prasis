@@ -21,6 +21,7 @@ import { doFetch } from "../../utils/doFetch.js";
 
 /**
  * Shape of the register request body.
+ * Keeping this here so the submit handler has typed payload.
  * @typedef {Object} RegisterPayload
  * @property {string} name
  * @property {string} email
@@ -39,9 +40,9 @@ const emailEl = document.getElementById("email");
 const passwordEl = document.getElementById("password");
 const confirmEl = document.getElementById("confirm");
 const submitBtn = document.getElementById("submit-btn");
-const statusEl = document.getElementById("form-status");
+const statusEl = document.getElementById("register-status"); // was form-status
 
-// inline error elements
+// inline error elements (one per field)
 const nameErr = document.getElementById("name-error");
 const emailErr = document.getElementById("email-error");
 const passwordErr = document.getElementById("password-error");
@@ -63,41 +64,44 @@ function isStudEmail(value) {
 }
 
 /**
+ * !!!
+ * Validation
+ * !!!
+ */
+
+/**
  * Validate form fields and toggle button state.
- * Shows/hides inline error messages.
- * @returns {boolean}
+ * Also keeps aria-invalid in sync with visible errors.
+ * @returns {boolean} true when all fields pass
  */
 function validate() {
   let ok = true;
 
-  if (!nameEl.value.trim()) {
-    nameErr.hidden = false;
-    ok = false;
-  } else {
-    nameErr.hidden = true;
-  }
+  // name: required
+  const nameBad = !nameEl.value.trim();
+  nameErr.hidden = !nameBad;
+  nameEl.setAttribute("aria-invalid", String(nameBad));
+  if (nameBad) ok = false;
 
-  if (!isStudEmail(emailEl.value)) {
-    emailErr.hidden = false;
-    ok = false;
-  } else {
-    emailErr.hidden = true;
-  }
+  // email: must be @stud.noroff.no
+  const emailBad = !isStudEmail(emailEl.value);
+  emailErr.hidden = !emailBad;
+  emailEl.setAttribute("aria-invalid", String(emailBad));
+  if (emailBad) ok = false;
 
-  if ((passwordEl.value || "").length < 8) {
-    passwordErr.hidden = false;
-    ok = false;
-  } else {
-    passwordErr.hidden = true;
-  }
+  // password: min 8 chars
+  const pwBad = (passwordEl.value || "").length < 8;
+  passwordErr.hidden = !pwBad;
+  passwordEl.setAttribute("aria-invalid", String(pwBad));
+  if (pwBad) ok = false;
 
-  if (confirmEl.value !== passwordEl.value || !confirmEl.value) {
-    confirmErr.hidden = false;
-    ok = false;
-  } else {
-    confirmErr.hidden = true;
-  }
+  // confirm: must match password and not be empty
+  const confirmBad = confirmEl.value !== passwordEl.value || !confirmEl.value;
+  confirmErr.hidden = !confirmBad;
+  confirmEl.setAttribute("aria-invalid", String(confirmBad));
+  if (confirmBad) ok = false;
 
+  // final control of CTA
   submitBtn.disabled = !ok;
   return ok;
 }
@@ -108,20 +112,30 @@ function validate() {
  * !!!
  */
 
-// live validation
-[nameEl, emailEl, passwordEl, confirmEl].forEach((el) =>
-  el.addEventListener("input", validate)
-);
-validate(); // initial state
+// live validation (typing + leaving field helps catch paste/tab cases)
+[nameEl, emailEl, passwordEl, confirmEl].forEach((el) => {
+  el.addEventListener("input", validate);
+  el.addEventListener("blur", validate);
+});
+
+// initial state on load
+validate();
 
 form.addEventListener(
   "submit",
   /** @param {SubmitEvent} e */ async (e) => {
     e.preventDefault();
     statusEl.textContent = "";
-    if (!validate()) return;
 
+    // avoid API call when invalid
+    if (!validate()) {
+      statusEl.textContent = "Please fix the highlighted fields.";
+      return;
+    }
+
+    // basic UI feedback while waiting
     submitBtn.disabled = true;
+    const prevLabel = submitBtn.textContent;
     submitBtn.textContent = "Creating…";
 
     /** @type {RegisterPayload} */
@@ -132,6 +146,7 @@ form.addEventListener(
     };
 
     try {
+      // using existing doFetch util; no auth header needed for register
       const { ok, data, status } = await doFetch(
         REGISTER_API_URL,
         { method: "POST", body: JSON.stringify(payload) },
@@ -139,6 +154,7 @@ form.addEventListener(
       );
 
       if (!ok) {
+        // try to surface something human from API
         const msg =
           data?.errors?.[0]?.message ||
           data?.message ||
@@ -150,11 +166,12 @@ form.addEventListener(
           statusEl.textContent = msg;
         }
 
+        submitBtn.textContent = prevLabel;
         submitBtn.disabled = false;
-        submitBtn.textContent = "Create account";
         return;
       }
 
+      // success: tiny delay to let users read the message
       statusEl.textContent = "Account created. Redirecting to login…";
       setTimeout(() => {
         const q = new URLSearchParams({
@@ -165,8 +182,8 @@ form.addEventListener(
       }, 700);
     } catch {
       statusEl.textContent = "Network error. Please try again.";
+      submitBtn.textContent = prevLabel;
       submitBtn.disabled = false;
-      submitBtn.textContent = "Create account";
     }
   }
 );
