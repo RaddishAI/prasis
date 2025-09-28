@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Listing · Prasis Auction House</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" href="/assets/prasis_logo.svg" />
+    <meta
+      name="description"
+      content="View auction listing details on Prasis."
+    />
+  </head>
+  <body>
+    <prasis-header mode="public"></prasis-header>
+
+    <main id="content">
+      <section class="hero hero--light hero--pad-lg">
+        <div class="hero__inner container">
+          <div class="hero__branding">
+            <img
+              src="/assets/prasis_logo_auctionhouse.svg"
+              alt="Prasis"
+              class="hero__logo"
+              width="480"
+              height="144"
+            />
+          </div>
+
+          <p id="listing-hero-lede" class="hero__lede">
+            Viewing auction details
+          </p>
+        </div>
+      </section>
+
+      <section class="section container" aria-labelledby="listing-heading">
+        <h1 id="listing-heading" class="section__title">Loading…</h1>
+
+        <div class="detail-grid" style="display: grid; gap: 1.5rem">
+          <article class="detail-main" style="display: grid; gap: 1rem">
+            <figure class="gallery" aria-labelledby="gallery-heading">
+              <figcaption id="gallery-heading" class="sr-only">
+                Gallery
+              </figcaption>
+
+              <div
+                id="listing-gallery"
+                class="gallery__stage"
+                style="
+                  aspect-ratio: 4/3;
+                  background: #f5f5f5;
+                  border-radius: 12px;
+                  overflow: hidden;
+                "
+              >
+                <img
+                  src="/assets/prasis_logo.svg"
+                  alt=""
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                  "
+                  loading="lazy"
+                />
+              </div>
+
+              <div
+                id="listing-thumbs"
+                class="gallery__thumbs"
+                style="display: flex; gap: 0.5rem; margin-top: 0.5rem"
+              ></div>
+            </figure>
+
+            <section aria-labelledby="desc-heading">
+              <h2 id="desc-heading" class="h4" style="margin: 0 0 0.5rem 0">
+                Description
+              </h2>
+              <div id="listing-description" class="prose">
+                <p>Loading description…</p>
+              </div>
+            </section>
+          </article>
+
+          <aside class="detail-side" style="display: grid; gap: 1rem">
+            <section
+              class="card"
+              aria-labelledby="meta-heading"
+              style="padding: 1rem"
+            >
+              <h2 id="meta-heading" class="h4" style="margin: 0 0 0.75rem 0">
+                Listing info
+              </h2>
+              <dl
+                class="meta"
+                style="
+                  display: grid;
+                  grid-template-columns: auto 1fr;
+                  gap: 0.5rem 1rem;
+                  margin: 0;
+                "
+              >
+                <dt>Ends</dt>
+                <dd id="listing-ends">—</dd>
+
+                <dt>Seller</dt>
+                <dd id="listing-seller">—</dd>
+
+                <dt>Highest bid</dt>
+                <dd id="listing-highest">0 cr</dd>
+              </dl>
+
+              <div class="cta-row" style="margin-top: 1rem">
+                <a class="btn btn--secondary" href="/index.html"
+                  >Back to listings</a
+                >
+              </div>
+            </section>
+
+            <section
+              class="card"
+              aria-labelledby="bids-heading"
+              style="padding: 1rem"
+            >
+              <h2 id="bids-heading" class="h4" style="margin: 0 0 0.5rem 0">
+                Bids
+              </h2>
+              <ul
+                id="listing-bids"
+                class="stack-sm"
+                style="list-style: none; padding: 0; margin: 0"
+              >
+                <li id="bids-loading">Loading bids…</li>
+              </ul>
+            </section>
+
+            <section
+              class="card"
+              aria-labelledby="bid-heading"
+              style="padding: 1rem"
+            >
+              <h2 id="bid-heading" class="h4" style="margin: 0 0 0.5rem 0">
+                Place a bid
+              </h2>
+
+              <form
+                id="bid-form"
+                class="auth-form"
+                action="#"
+                method="post"
+                novalidate
+              >
+                <div class="form-row">
+                  <label for="bid-amount">Amount (credits)</label>
+                  <input
+                    id="bid-amount"
+                    name="amount"
+                    class="input"
+                    type="number"
+                    min="1"
+                    step="1"
+                  />
+                </div>
+
+                <div class="cta-row">
+                  <button
+                    id="bid-submit"
+                    class="btn btn--primary"
+                    type="submit"
+                  >
+                    Bid
+                  </button>
+                  <small id="bid-hint" class="form-hint"
+                    >You must be logged in to bid.</small
+                  >
+                </div>
+
+                <p id="bid-status" class="form-status" aria-live="polite"></p>
+              </form>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <style>
+        @media (min-width: 900px) {
+          .detail-grid {
+            grid-template-columns: 1.2fr 1fr;
+          }
+        }
+      </style>
+    </main>
+
+    <footer>
+      <prasis-footer logo-src="/assets/prasis_logo.svg" home-href="/index.html">
+      </prasis-footer>
+    </footer>
+
+    <!-- components -->
+    <script type="module" src="/scripts/components/header.js"></script>
+    <script type="module" src="/scripts/components/footer.js"></script>
+
+    <script type="module" src="/scripts/pages/listing.js"></script>
+
+    <noscript>
+      <p class="container">
+        This page requires JavaScript to load listing details.
+      </p>
+    </noscript>
+  </body>
+</html>
