@@ -1,0 +1,13 @@
+<svg width="400" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'UnifrakturCook';
+        src: url('data:application/font-woff2;charset=utf-8;base64,d09GMgABAAAA...[kortet ned base64 her]...') format('woff2');
+        font-weight: 700;
+      }
+      .title { font-family: 'UnifrakturCook', cursive; }
+    </style>
+  </defs>
+  <text x="200" y="90" class="title" font-size="80" text-anchor="middle" fill="black">Prasis</text>
+</svg>
