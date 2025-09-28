@@ -2,34 +2,132 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prasis Action house</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terms & Conditions · Prasis</title>
 
-    <!-- styles-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles/main.css">
-  
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
-
+    <!-- global CSS -->
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" href="/assets/prasis_logo.svg" />
+    <meta
+      name="description"
+      content="Terms and conditions for using Prasis Auction House."
+    />
   </head>
   <body>
-    <prasis-header mode="private"></prasis-header>
+    <!-- public header so this page works while logged out -->
+    <prasis-header mode="public"></prasis-header>
 
-    <main></main>
+    <main id="content">
+      <!-- hero (no subtitle text; the SVG already has it) -->
+      <section class="hero hero--light hero--pad-lg">
+        <div class="hero__inner container">
+          <div class="hero__branding">
+            <img
+              src="/assets/prasis_logo_auctionhouse.svg"
+              alt="Prasis"
+              class="hero__logo"
+              width="480"
+              height="144"
+            />
+          </div>
+          <p class="hero__lede">Please read these terms before using Prasis.</p>
+        </div>
+      </section>
 
-    <prasis-footer
-    logo-src="/assets/prasis_logo.svg"
-    home-href="/index.html">
-  </prasis-footer>
+      <section class="section container" aria-labelledby="terms-heading">
+        <h1 id="terms-heading" class="section__title">
+          Terms &amp; Conditions
+        </h1>
 
+        <!-- simple copy blocks; styled by .prose -->
+        <div class="prose">
+          <h2>1. Introduction</h2>
+          <p>
+            Prasis is a student-built auction site front-end that connects to
+            the Noroff v2 Auction API. By using this website you agree to these
+            terms.
+          </p>
+
+          <h2>2. Accounts &amp; Eligibility</h2>
+          <ul>
+            <li>
+              Registration requires an email ending with
+              <code>@stud.noroff.no</code>.
+            </li>
+            <li>You are responsible for keeping your credentials secure.</li>
+          </ul>
+
+          <h2>3. Credits</h2>
+          <ul>
+            <li>
+              Credits are gained by selling items and spent when winning bids.
+            </li>
+            <li>Credits have no real-world monetary value.</li>
+          </ul>
+
+          <h2>4. Listings</h2>
+          <ul>
+            <li>
+              Listings must include a title, deadline, and may include images
+              and a description.
+            </li>
+            <li>
+              Do not post illegal, unsafe, or copyrighted content without
+              permission.
+            </li>
+            <li>We may remove content that violates these rules.</li>
+          </ul>
+
+          <h2>5. Bidding</h2>
+          <ul>
+            <li>Bids are final and deduct credits only if you win.</li>
+            <li>The highest bid at the deadline wins the listing.</li>
+          </ul>
+
+          <h2>6. Deadlines &amp; Timing</h2>
+          <p>
+            Deadlines are handled by the API. Network delays can occur; plan
+            your bids accordingly.
+          </p>
+
+          <h2>7. Prohibited Use</h2>
+          <ul>
+            <li>No fraud, harassment, or attempts to bypass API rules.</li>
+            <li>No uploading of malware or abusive content.</li>
+          </ul>
+
+          <h2>8. Liability</h2>
+          <p>
+            Prasis is provided “as is” for educational purposes. We are not
+            liable for losses or damages arising from use of the site.
+          </p>
+
+          <h2>9. Privacy</h2>
+          <p>
+            See our <a href="/pages/privacy.html">Privacy Policy</a> for how we
+            handle data.
+          </p>
+
+          <h2>10. Changes</h2>
+          <p>
+            We may update these terms. Continued use after changes means you
+            accept the updated terms.
+          </p>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn--secondary" href="/index.html">Back to listings</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <prasis-footer logo-src="/assets/prasis_logo.svg" home-href="/index.html">
+      </prasis-footer>
+    </footer>
+
+    <!-- components -->
     <script type="module" src="/scripts/components/header.js"></script>
     <script type="module" src="/scripts/components/footer.js"></script>
-    <script type="module" src="./pages/login/test-login.js"></script>
-
-    </script>
   </body>
 </html>
