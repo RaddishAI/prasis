@@ -7,6 +7,13 @@
   margin-inline: auto;
 }
 
+/* Narrow container utility for forms/blocks (used on Contact form) */
+.max-w-720 {
+  max-width: 45rem; // ~720px
+  width: 100%;
+  margin-inline: auto; // center block
+}
+
 /* ===== Hero (about/contact/etc.) ===== */
 .hero {
 }
@@ -18,6 +25,12 @@
 .hero--pad-lg {
   /* comfortable vertical spacing; responsive */
   padding-block: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* NEW: center all hero contents horizontally */
+.hero__inner {
+  display: grid;
+  justify-items: center; // centers logo, subtitle, and lede
 }
 
 .hero__branding {
@@ -45,4 +58,5 @@
   max-width: 64ch;
   margin: 0 auto; // center under logo
   padding-inline: $space-4; // a bit of side padding on small screens
+  text-align: center; // center the line of text
 }

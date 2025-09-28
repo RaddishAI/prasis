@@ -1,5 +1,12 @@
 @use "variables" as *;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Bridge theme to Bootstrap defaults */
 :root {
   --bs-body-bg: #{$color-bg};
   --bs-body-color: #{$color-text};
@@ -23,7 +30,7 @@ body {
 
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr auto; /* footer always after content */
+  grid-template-rows: auto 1fr auto; /* footer after content */
 }
 
 /* Make custom elements behave like normal blocks */
@@ -40,11 +47,12 @@ prasis-footer {
   z-index: auto;
 }
 
-/* Main grows and won't be covered */
+/* Main grows and keeps distance to footer */
 main {
   min-width: 0;
   overflow: visible;
 
+  /* extra breathing room above footer + iOS safe area */
   padding-bottom: calc(
     env(safe-area-inset-bottom) + clamp(#{$space-4}, 4vw, #{$space-8})
   );
@@ -57,6 +65,15 @@ svg {
   max-width: 100%;
 }
 
+/* Prevent form controls from exceeding their container on small screens */
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+/* Links: keep Bootstrap color, refine underline */
 a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;

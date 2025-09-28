@@ -1,4 +1,11 @@
 @charset "UTF-8";
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Bridge theme to Bootstrap defaults */
 :root {
   --bs-body-bg: #fffbf3;
   --bs-body-color: #1a1a1a;
@@ -21,7 +28,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr auto; /* footer always after content */
+  grid-template-rows: auto 1fr auto; /* footer after content */
 }
 
 /* Make custom elements behave like normal blocks */
@@ -38,10 +45,11 @@ prasis-footer {
   z-index: auto;
 }
 
-/* Main grows and won't be covered */
+/* Main grows and keeps distance to footer */
 main {
   min-width: 0;
   overflow: visible;
+  /* extra breathing room above footer + iOS safe area */
   padding-bottom: calc(env(safe-area-inset-bottom) + clamp(1rem, 4vw, 2rem));
 }
 
@@ -52,6 +60,15 @@ svg {
   max-width: 100%;
 }
 
+/* Prevent form controls from exceeding their container on small screens */
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+/* Links: keep Bootstrap color, refine underline */
 a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;
@@ -68,6 +85,13 @@ a:hover {
   margin-inline: auto;
 }
 
+/* Narrow container utility for forms/blocks (used on Contact form) */
+.max-w-720 {
+  max-width: 45rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
 /* ===== Hero (about/contact/etc.) ===== */
 .hero--light {
   background: #fffbf3;
@@ -76,6 +100,12 @@ a:hover {
 .hero--pad-lg {
   /* comfortable vertical spacing; responsive */
   padding-block: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* NEW: center all hero contents horizontally */
+.hero__inner {
+  display: grid;
+  justify-items: center;
 }
 
 .hero__branding {
@@ -103,6 +133,7 @@ a:hover {
   max-width: 64ch;
   margin: 0 auto;
   padding-inline: 1rem;
+  text-align: center;
 }
 
 /* !!1
