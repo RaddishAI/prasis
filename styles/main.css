@@ -1,16 +1,10 @@
 @charset "UTF-8";
-/* Bridge your theme to Bootstrap so its defaults match yours */
 :root {
   --bs-body-bg: #fffbf3;
   --bs-body-color: #1a1a1a;
-  /* Optional:
-     --bs-link-color: #0d6efd;
-     // or your accent:
-     // --bs-link-color: #eba727;
-  */
 }
 
-/* Consistent page background and text color */
+/* Full-height page and theme colors */
 html,
 body {
   height: 100%;
@@ -18,38 +12,46 @@ body {
   color: var(--bs-body-color);
 }
 
-/* Base typography & smoothing + sticky page layout */
+/* Grid page: header | main (fills) | footer */
 body {
   margin: 0;
   font-family: "Source Sans Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Sticky layout: header | main (fills) | footer */
-  min-height: 100dvh; /* iOS-safe viewport height */
+  min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto; /* footer always after content */
 }
 
-/* Ensure custom elements act as block rows in the grid */
+/* Make custom elements behave like normal blocks */
 prasis-header,
 prasis-footer {
   display: block;
 }
 
-/* Prevent long content from causing horizontal scroll */
-main {
-  min-width: 0;
+/* Ensure footer isn't fixed or overlaying on mobile */
+footer,
+prasis-footer {
+  position: static !important;
+  inset: auto;
+  z-index: auto;
 }
 
-/* Sensible defaults for media */
+/* Main grows and won't be covered */
+main {
+  min-width: 0;
+  overflow: visible;
+  padding-bottom: calc(env(safe-area-inset-bottom) + clamp(1rem, 4vw, 2rem));
+}
+
+/* Media defaults */
 img,
 svg {
   display: block;
   max-width: 100%;
 }
 
-/* Let Bootstrap control link color; just refine underline */
 a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;
@@ -59,10 +61,48 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
-/* Center content with a max width and side padding */
+/* ===== Layout container ===== */
+/* centers content and limits line length */
 .container {
-  width: min(100% - 2rem, 1200px); /* 1rem padding on each side */
+  width: min(100% - 2rem, 1200px);
   margin-inline: auto;
+}
+
+/* ===== Hero (about/contact/etc.) ===== */
+.hero--light {
+  background: #fffbf3;
+}
+
+.hero--pad-lg {
+  /* comfortable vertical spacing; responsive */
+  padding-block: clamp(1.25rem, 4vw, 3rem);
+}
+
+.hero__branding {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.hero__logo {
+  /* bigger but still responsive */
+  display: block;
+  width: clamp(260px, 40vw, 520px);
+  height: auto;
+  margin-inline: auto;
+}
+
+.hero__subtitle {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  font-size: clamp(0.9rem, 1.1vw, 1.125rem);
+  opacity: 0.85;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+.hero__lede {
+  max-width: 64ch;
+  margin: 0 auto;
+  padding-inline: 1rem;
 }
 
 /* !!1
@@ -569,7 +609,7 @@ a:hover {
   }
 }
 /* ===== Auth form (login/register) ===== */
-/* note to self: scoped classes so we don't fight Bootstrap */
+/* scoped classes so we don't fight Bootstrap */
 .auth-form {
   display: grid;
   gap: 1rem;
@@ -586,46 +626,81 @@ a:hover {
 }
 
 .input {
-  /* note to self: match style guide look */
+  /* match style guide look */
   display: block;
   width: 100%;
   padding: 0.5rem 0.625rem;
-  border: 2px solid #eba727; /* Accent */
+  border: 2px solid #eba727;
   border-radius: 8px;
   background: #fff;
   line-height: 1.2;
 }
 .input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.25); /* soft accent glow */
+  box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.25);
 }
 
 .error {
-  color: #9b6b42; /* Primary tone */
+  color: #986b42;
   font-size: 0.9rem;
 }
 
 .form-status {
-  min-height: 1.25rem; /* note to self: reserve space to avoid layout jump */
+  min-height: 1.25rem;
   font-size: 0.95rem;
 }
 
-/* Button look (modifier so Bootstrap .btn still applies) */
+/* ===== Buttons (style guide) ===== */
+.btn {
+  display: inline-block;
+  font: 600 1rem/1 "Source Sans Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 40ms ease, filter 150ms ease, background-color 150ms ease;
+}
+.btn:focus-visible {
+  outline: 2px solid #eba727;
+  outline-offset: 2px;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Primary = filled brand color */
 .btn.btn--primary {
-  background: #9b6b42; /* Primary */
+  background: #986b42;
   color: #fff;
-  border: 0;
-  border-radius: 10px;
-  padding: 0.55rem 0.9rem;
-  font-weight: 600;
-  line-height: 1.2;
+  border-color: #986b42;
 }
 .btn.btn--primary:hover, .btn.btn--primary:focus-visible {
   filter: brightness(0.95);
 }
-.btn.btn--primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+
+/* Secondary = outline on surface */
+.btn.btn--secondary {
+  background: #ffffff;
+  color: #986b42;
+  border-color: #986b42;
+}
+.btn.btn--secondary:hover, .btn.btn--secondary:focus-visible {
+  background: rgba(152, 107, 66, 0.08);
+}
+
+/* CTA row spacing (used on About page) */
+.cta-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.75rem;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,5 +1,7 @@
+@use "variables" as *;
+
 /* ===== Auth form (login/register) ===== */
-/* note to self: scoped classes so we don't fight Bootstrap */
+/* scoped classes so we don't fight Bootstrap */
 
 .auth-form {
   display: grid;
@@ -17,48 +19,86 @@
 }
 
 .input {
-  /* note to self: match style guide look */
+  /* match style guide look */
   display: block;
   width: 100%;
   padding: 0.5rem 0.625rem;
-  border: 2px solid #eba727; /* Accent */
+  border: 2px solid $color-accent; // accent border
   border-radius: 8px;
   background: #fff;
   line-height: 1.2;
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.25); /* soft accent glow */
+    box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.25); // soft accent glow
   }
 }
 
 .error {
-  color: #9b6b42; /* Primary tone */
+  color: $color-primary;
   font-size: 0.9rem;
 }
 
 .form-status {
-  min-height: 1.25rem; /* note to self: reserve space to avoid layout jump */
+  min-height: 1.25rem; // reserve space to avoid layout jump
   font-size: 0.95rem;
 }
 
-/* Button look (modifier so Bootstrap .btn still applies) */
+/* ===== Buttons (style guide) ===== */
+.btn {
+  display: inline-block;
+  font: 600 1rem/1 $font-sans;
+  text-decoration: none;
+  border-radius: 999px; // pill shape
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 40ms ease, filter 150ms ease,
+    background-color 150ms ease;
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+  }
+  &:active {
+    transform: translateY(1px);
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Primary = filled brand color */
 .btn.btn--primary {
-  background: #9b6b42; /* Primary */
+  background: $color-primary;
   color: #fff;
-  border: 0;
-  border-radius: 10px;
-  padding: 0.55rem 0.9rem;
-  font-weight: 600;
-  line-height: 1.2;
+  border-color: $color-primary;
 
   &:hover,
   &:focus-visible {
     filter: brightness(0.95);
   }
+}
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+/* Secondary = outline on surface */
+.btn.btn--secondary {
+  background: $color-surface;
+  color: $color-primary;
+  border-color: $color-primary;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(152, 107, 66, 0.08); // subtle primary tint
   }
+}
+
+/* CTA row spacing (used on About page) */
+.cta-row {
+  display: flex;
+  gap: $space-3;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: $space-3;
 }

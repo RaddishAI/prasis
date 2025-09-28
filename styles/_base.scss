@@ -1,17 +1,11 @@
 @use "variables" as *;
 
-/* Bridge your theme to Bootstrap so its defaults match yours */
 :root {
   --bs-body-bg: #{$color-bg};
   --bs-body-color: #{$color-text};
-  /* Optional:
-     --bs-link-color: #0d6efd;
-     // or your accent:
-     // --bs-link-color: #{$color-accent};
-  */
 }
 
-/* Consistent page background and text color */
+/* Full-height page and theme colors */
 html,
 body {
   height: 100%;
@@ -19,7 +13,7 @@ body {
   color: var(--bs-body-color);
 }
 
-/* Base typography & smoothing + sticky page layout */
+/* Grid page: header | main (fills) | footer */
 body {
   margin: 0;
   font-family: $font-sans;
@@ -27,31 +21,42 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Sticky layout: header | main (fills) | footer */
-  min-height: 100dvh; /* iOS-safe viewport height */
+  min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto; /* footer always after content */
 }
 
-/* Ensure custom elements act as block rows in the grid */
+/* Make custom elements behave like normal blocks */
 prasis-header,
 prasis-footer {
   display: block;
 }
 
-/* Prevent long content from causing horizontal scroll */
-main {
-  min-width: 0;
+/* Ensure footer isn't fixed or overlaying on mobile */
+footer,
+prasis-footer {
+  position: static !important;
+  inset: auto;
+  z-index: auto;
 }
 
-/* Sensible defaults for media */
+/* Main grows and won't be covered */
+main {
+  min-width: 0;
+  overflow: visible;
+
+  padding-bottom: calc(
+    env(safe-area-inset-bottom) + clamp(#{$space-4}, 4vw, #{$space-8})
+  );
+}
+
+/* Media defaults */
 img,
 svg {
   display: block;
   max-width: 100%;
 }
 
-/* Let Bootstrap control link color; just refine underline */
 a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;

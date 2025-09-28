@@ -1,7 +1,48 @@
 @use "variables" as *;
 
-/* Center content with a max width and side padding */
+/* ===== Layout container ===== */
+/* centers content and limits line length */
 .container {
-  width: min(100% - 2rem, 1200px); /* 1rem padding on each side */
+  width: min(100% - 2rem, 1200px); // 1rem side padding
   margin-inline: auto;
+}
+
+/* ===== Hero (about/contact/etc.) ===== */
+.hero {
+}
+
+.hero--light {
+  background: $color-bg; // style-guide background
+}
+
+.hero--pad-lg {
+  /* comfortable vertical spacing; responsive */
+  padding-block: clamp(1.25rem, 4vw, 3rem);
+}
+
+.hero__branding {
+  text-align: center;
+  margin-bottom: $space-4;
+}
+
+.hero__logo {
+  /* bigger but still responsive */
+  display: block;
+  width: clamp(260px, 40vw, 520px);
+  height: auto;
+  margin-inline: auto;
+}
+
+.hero__subtitle {
+  font-family: $font-serif;
+  font-size: clamp(0.9rem, 1.1vw, 1.125rem);
+  opacity: 0.85;
+  margin-top: $space-1;
+  text-align: center;
+}
+
+.hero__lede {
+  max-width: 64ch;
+  margin: 0 auto; // center under logo
+  padding-inline: $space-4; // a bit of side padding on small screens
 }

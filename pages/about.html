@@ -2,34 +2,80 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prasis Action house</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About · Prasis Auction House</title>
 
-    <!-- styles-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../styles/main.css">
-  
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" href="/assets/prasis_logo.svg" />
+    <meta
+      name="description"
+      content="About Prasis — a student-built auction house using the Noroff v2 API."
+    />
   </head>
   <body>
-    <prasis-header mode="private"></prasis-header>
+    <!-- public header: works while logged out -->
+    <prasis-header mode="public"></prasis-header>
 
-    <main></main>
+    <main id="content">
+      <section class="hero hero--light hero--pad-lg">
+        <div class="hero__inner container">
+          <div class="hero__branding">
+            <img
+              src="/assets/prasis_logo_auctionhouse.svg"
+              alt="Prasis"
+              class="hero__logo"
+              width="320"
+              height="96"
+            />
+          </div>
 
-    <prasis-footer
-    logo-src="/assets/prasis_logo.svg"
-    home-href="/index.html">
-  </prasis-footer>
+          <!-- short one-liner -->
+          <p class="hero__lede">Buy and sell unique items with credits.</p>
+        </div>
+      </section>
 
+      <!-- about content -->
+      <section class="section container" aria-labelledby="about-heading">
+        <h1 id="about-heading" class="section__title">About Prasis</h1>
+
+        <div class="prose">
+          <p>
+            <strong>Prasis</strong> comes from the Greek word
+            <em>πρᾶσις (prásis)</em> — “sale”. This site is a semester project
+            front-end for the Noroff Auction API (v2).
+          </p>
+
+          <p>
+            Anyone can browse and search listings. Registered users (with
+            <code>@stud.noroff.no</code>) can create listings, upload images,
+            set deadlines, and place bids using credits.
+          </p>
+        </div>
+
+        <!-- quick bullets -->
+        <ul class="feature-list">
+          <li>Create listings with title, deadline, images, and description</li>
+          <li>Bid on other users’ listings and view bid history</li>
+          <li>Browse and search without logging in</li>
+        </ul>
+
+        <div class="cta-row">
+          <a class="btn btn--primary" href="/pages/register/index.html"
+            >Create account</a
+          >
+          <a class="btn btn--secondary" href="/index.html">Browse listings</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <!-- footer component -->
+      <prasis-footer logo-src="/assets/prasis_logo.svg" home-href="/index.html">
+      </prasis-footer>
+    </footer>
+
+    <!-- components -->
     <script type="module" src="/scripts/components/header.js"></script>
     <script type="module" src="/scripts/components/footer.js"></script>
-    <script type="module" src="./pages/login/test-login.js"></script>
-
-    </script>
   </body>
 </html>
