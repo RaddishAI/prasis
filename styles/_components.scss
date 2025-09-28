@@ -1,5 +1,11 @@
 @use "variables" as *;
 
+/**
+ * !!!
+ * Forms & Buttons
+ * !!!
+ */
+
 /* ===== Auth form (login/register) ===== */
 /* scoped classes so we don't fight Bootstrap */
 
@@ -94,11 +100,106 @@
   }
 }
 
-/* CTA row spacing (used on About page) */
+/* CTA row spacing (used on several pages) */
 .cta-row {
   display: flex;
   gap: $space-3;
   flex-wrap: wrap;
   align-items: center;
   margin-top: $space-3;
+}
+
+/**
+ * !!!
+ * Listings grid & cards
+ * !!!
+ */
+
+/* Responsive grid for cards */
+.grid {
+  display: grid;
+  gap: 1.25rem; // breathable spacing
+}
+
+/* auto-fill as many 260px cards as fit */
+.grid--cards {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* clickable card (anchor) */
+.card {
+  display: block;
+  text-decoration: none;
+
+  background: $color-surface; // style guide "Surface"
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+
+  /* soft elevation */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(0, 0, 0, 0.04);
+
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(0, 0, 0, 0.06);
+  text-decoration: none; // keep title clean
+}
+
+.card__media {
+  /* keep images consistent regardless of source aspect */
+  aspect-ratio: 4 / 3;
+  background: #f5f5f5; // fallback bg while loading
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* crop nicely */
+  display: block;
+}
+
+.card__body {
+  padding: 0.75rem 1rem 1rem;
+}
+
+.card__title {
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.35rem 0;
+  color: inherit;
+
+  /* limit to two lines, avoid jumpy cards */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* compact key/value meta rows */
+.card__meta {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2-column layout */
+  gap: 0.5rem 1rem;
+  font-size: 0.925rem;
+}
+
+.card__meta dt {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.card__meta dd {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+/* a11y: ensure focus ring is visible on keyboard nav */
+.card:focus-visible {
+  outline: 2px solid rgba(235, 167, 39, 0.6); /* Accent ring */
+  outline-offset: 2px;
 }
