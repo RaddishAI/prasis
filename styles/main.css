@@ -1,0 +1,631 @@
+@charset "UTF-8";
+/* Bridge your theme to Bootstrap so its defaults match yours */
+:root {
+  --bs-body-bg: #fffbf3;
+  --bs-body-color: #1a1a1a;
+  /* Optional:
+     --bs-link-color: #0d6efd;
+     // or your accent:
+     // --bs-link-color: #eba727;
+  */
+}
+
+/* Consistent page background and text color */
+html,
+body {
+  height: 100%;
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color);
+}
+
+/* Base typography & smoothing + sticky page layout */
+body {
+  margin: 0;
+  font-family: "Source Sans Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Sticky layout: header | main (fills) | footer */
+  min-height: 100dvh; /* iOS-safe viewport height */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Ensure custom elements act as block rows in the grid */
+prasis-header,
+prasis-footer {
+  display: block;
+}
+
+/* Prevent long content from causing horizontal scroll */
+main {
+  min-width: 0;
+}
+
+/* Sensible defaults for media */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Let Bootstrap control link color; just refine underline */
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Center content with a max width and side padding */
+.container {
+  width: min(100% - 2rem, 1200px); /* 1rem padding on each side */
+  margin-inline: auto;
+}
+
+/* !!1
+   DESKTOP-FIRST DEFAULTS (apply to size M–XL by default)
+   !!! */
+/* Header shell */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.site-header__inner {
+  min-height: 72px; /* was 64px */
+  gap: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo__img {
+  display: block;
+  height: 36px; /* tweak as needed */
+  width: auto;
+}
+
+/* Right cluster: toggle + nav */
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Toggle (hidden on desktop by default) */
+.site-header__toggle {
+  appearance: none;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  display: none; /* desktop default: hidden */
+}
+
+.site-header__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Nav: desktop inline */
+.site-header__nav {
+  /* if HTML sets [hidden], ignore it on desktop */
+}
+
+.site-header__nav[hidden] {
+  display: block !important; /* desktop: nav always visible */
+}
+
+/* Nav list & items */
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row; /* desktop inline */
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Links */
+.nav__link {
+  display: block;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 500;
+  /* single source of truth for hit-area */
+  padding-block: 0.5rem;
+  padding-inline: 0.25rem;
+  /* keyboard focus */
+}
+.nav__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+.nav__link {
+  /* hover */
+}
+.nav__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+/* Active/current state */
+.nav__link.is-active,
+.nav__link[aria-current=page] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+/* Cart link & badge */
+.nav__link--cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__cart-badge {
+  display: inline-block;
+  min-width: 1.25em;
+  line-height: 1.25em;
+  font-size: 0.875rem;
+  text-align: center;
+  border-radius: 9999px;
+  padding-inline: 0.375em;
+  border: 1px solid currentColor; /* inherits text color */
+  flex: 0 0 auto; /* prevent shrinking in flex containers */
+}
+
+/* Logout button — match style-guide "Secondary" */
+.nav__logout {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.1;
+  font-weight: 600;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 2px solid #eba727; /* thicker accent border */
+  border-radius: 0.75rem; /* softer corners */
+  cursor: pointer;
+  transition: background-color 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+.nav__logout:hover {
+  background: rgb(253, 246.2, 233.4);
+  text-decoration: none;
+}
+.nav__logout {
+  /* smoother focus ring that follows the radius */
+}
+.nav__logout:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.35);
+}
+.nav__logout:active {
+  transform: translateY(1px);
+}
+
+/* Optional JS hook */
+.site-header__nav[data-open=true] {
+  display: block;
+}
+
+/* !!!
+   MOBILE OVERRIDES (size s) (≤ 767px)
+   !!! */
+@media (max-width: 767px) {
+  /* show the toggle on mobile */
+  .site-header__toggle {
+    display: inline-block;
+  }
+  /* respect [hidden] on mobile (JS will remove when opening) */
+  .site-header__nav[hidden] {
+    display: none !important;
+  }
+  /* full-width nav under header row */
+  .site-header__nav {
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 0.25rem;
+  }
+  /* stack items vertically */
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+  }
+  /* larger touch target */
+  .nav__link {
+    padding-block: 0.75rem;
+  }
+  /* header alignment when nav stacks */
+  .site-header__inner {
+    align-items: center; /* center logo + menu vertically */
+    min-height: 64px; /* consistent bar height on mobile */
+  }
+  /* auth row nicety */
+  .nav__item--auth {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+:where(.site-header) button[aria-controls]:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+:where(.site-header) button[aria-controls]:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+:where(.site-header) button[aria-controls]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* If you render an icon inside the button */
+:where(.site-header) button[aria-controls] svg {
+  inline-size: 1.1em;
+  block-size: 1.1em;
+}
+
+/* Mobile: style the header toggle as a secondary button */
+@media (max-width: 767px) {
+  .site-header__toggle {
+    appearance: none;
+    background: transparent;
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 999px;
+    padding: 0.5rem 0.9rem;
+    line-height: 1;
+    font: inherit;
+    font-weight: 600;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .site-header__toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .site-header__toggle:active {
+    background: rgba(0, 0, 0, 0.08);
+  }
+  .site-header__toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  .site-header__toggle svg {
+    inline-size: 1.1em;
+    block-size: 1.1em;
+  }
+}
+@media (max-width: 767px) {
+  .site-header__toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: transparent !important;
+    color: #1a1a1a !important;
+    border: 2px solid #1a1a1a !important; /* bold, easy to see */
+    border-radius: 999px !important;
+    padding: 0.5rem 0.9rem !important;
+    line-height: 1 !important;
+    font-weight: 600 !important;
+  }
+}
+/* Mobile: make the nav a dropdown panel anchored to the toggle */
+@media (max-width: 767px) {
+  .site-header__right {
+    position: relative; /* anchor for absolute dropdown */
+  }
+  /* When the nav is shown (JS removes [hidden]) it appears as a floating panel */
+  .site-header__nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: max-content; /* fit to content */
+    min-width: 220px; /* but not too tiny */
+    max-height: min(60vh, 480px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 0.5rem; /* panel padding */
+    z-index: 1000;
+    /* override earlier mobile "full-width under header" style */
+    border-top: 0;
+    padding-top: 0.5rem;
+  }
+  /* Make each item look clean inside the panel */
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    margin: 0;
+  }
+  .nav__link {
+    padding: 0.625rem 0.75rem;
+    border-radius: 8px;
+  }
+  .nav__link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+  }
+  /* Auth row spacing inside the panel */
+  .nav__item--auth {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.25rem 0;
+  }
+}
+/* =========================
+   Footer (scoped to .site-footer)
+   ========================= */
+:where(.site-footer) {
+  background: #ffffff;
+  color: #1a1a1a;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Layout: mobile stacks; desktop = left | (nav | social) */
+:where(.site-footer) .site-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile */
+  gap: 1rem;
+  align-items: start;
+  padding-block: 2rem; /* vertical rhythm; container handles inline padding */
+}
+
+@media (min-width: 720px) {
+  :where(.site-footer) .site-footer__inner {
+    grid-template-columns: 1.2fr 2fr; /* left | right-group */
+  }
+}
+/* Left: logo + © */
+:where(.site-footer) .site-footer__left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:where(.site-footer) .site-footer__logo .logo__img {
+  display: block;
+  inline-size: auto;
+  block-size: 40px;
+}
+
+:where(.site-footer) .site-footer__copyright {
+  margin: 0;
+  font-size: 0.9375rem;
+  opacity: 0.9;
+}
+
+/* Right group (nav | social) */
+:where(.site-footer) .site-footer__right {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  :where(.site-footer) .site-footer__right {
+    grid-template-columns: 2fr 1fr; /* nav | social */
+    align-items: center;
+  }
+}
+/* Middle nav: no bullets; inline with separators */
+:where(.site-footer) .footer-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+:where(.site-footer) .footer-nav__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Prevent awkward word breaks inside links */
+:where(.site-footer) .footer-nav__link {
+  white-space: nowrap;
+}
+
+/* Right social: keep pipes */
+:where(.site-footer) .site-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  justify-content: flex-start;
+}
+
+:where(.site-footer) .site-footer__social .social__link + .social__link::before {
+  content: "|";
+  margin-inline: 0.5rem 0.25rem;
+  opacity: 0.5;
+}
+
+/* Footer-only link styles */
+:where(.site-footer) a {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+:where(.site-footer) a:hover,
+:where(.site-footer) a:focus-visible {
+  text-decoration: underline;
+}
+
+:where(.site-footer) a:visited {
+  color: inherit;
+  opacity: 0.95;
+}
+
+:where(.site-footer) a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (min-width: 720px) {
+  :where(.site-footer) .footer-nav__list {
+    max-width: 460px; /* adjust 420–520px to taste */
+    margin-inline: auto; /* center within its grid cell */
+    justify-content: center;
+  }
+}
+/* Desktop: vertically center left | middle | right */
+@media (min-width: 720px) {
+  :where(.site-footer) .site-footer__inner {
+    align-items: center;
+  }
+}
+/* Keep the pipe attached to its item so lines don't end with '|' */
+:where(.site-footer) .footer-nav__item {
+  white-space: nowrap;
+}
+
+:where(.site-footer) .footer-nav__item:not(:last-child)::after {
+  content: " | "; /* nbsp | nbsp for spacing */
+  opacity: 0.5;
+}
+
+/* Desktop: let nav/social shrink so layout doesn't get funky */
+@media (min-width: 720px) {
+  :where(.site-footer) .site-footer__right > * {
+    min-width: 0; /* critical for grid children to wrap instead of overflow */
+  }
+}
+/* Desktop: center left and right sections horizontally, to match middle */
+@media (min-width: 720px) {
+  :where(.site-footer) .site-footer__left {
+    justify-content: center; /* was left-aligned */
+    text-align: center;
+  }
+  :where(.site-footer) .site-footer__social {
+    justify-content: center; /* override earlier flex-end */
+    text-align: center;
+  }
+}
+/* Mobile: center brand/copyright and socials */
+@media (max-width: 600px) {
+  :where(.site-footer) .site-footer__left {
+    flex-direction: column; /* keep stacked */
+    align-items: center; /* center horizontally */
+    text-align: center;
+    gap: 0.25rem;
+  }
+  :where(.site-footer) .site-footer__copyright {
+    margin: 0; /* tidy */
+  }
+  :where(.site-footer) .site-footer__social {
+    justify-content: center; /* center socials row */
+    text-align: center;
+  }
+}
+/* Mobile: vertical, centered middle nav; no pipes */
+@media (max-width: 600px) {
+  :where(.site-footer) .footer-nav__list {
+    flex-direction: column;
+    align-items: center; /* center the whole column */
+    gap: 0.375rem;
+  }
+  :where(.site-footer) .footer-nav__item {
+    justify-content: center; /* center each row */
+  }
+  :where(.site-footer) .footer-nav__item::after {
+    content: none !important; /* no '|' on mobile */
+  }
+  :where(.site-footer) .footer-nav__link {
+    white-space: normal; /* allow wrapping if a label is long */
+  }
+}
+/* Mobile: copyright sizing (inside centered layout) */
+@media (max-width: 600px) {
+  :where(.site-footer) .site-footer__copyright {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+}
+/* ===== Auth form (login/register) ===== */
+/* note to self: scoped classes so we don't fight Bootstrap */
+.auth-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-row {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.auth-form label {
+  font-weight: 600;
+}
+
+.input {
+  /* note to self: match style guide look */
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border: 2px solid #eba727; /* Accent */
+  border-radius: 8px;
+  background: #fff;
+  line-height: 1.2;
+}
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.25); /* soft accent glow */
+}
+
+.error {
+  color: #9b6b42; /* Primary tone */
+  font-size: 0.9rem;
+}
+
+.form-status {
+  min-height: 1.25rem; /* note to self: reserve space to avoid layout jump */
+  font-size: 0.95rem;
+}
+
+/* Button look (modifier so Bootstrap .btn still applies) */
+.btn.btn--primary {
+  background: #9b6b42; /* Primary */
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.btn.btn--primary:hover, .btn.btn--primary:focus-visible {
+  filter: brightness(0.95);
+}
+.btn.btn--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/*# sourceMappingURL=main.css.map */

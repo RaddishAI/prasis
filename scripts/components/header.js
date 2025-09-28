@@ -25,6 +25,8 @@
  *      - windows "storage" (cross tab changes)
  *      - custom CART_EVENT ("prasis:cart-change") for in-app updates
  *
+ * mobilversion:
+ * gives a dropdown meny.
  */
 
 import {
@@ -116,7 +118,7 @@ class PrasisHeader extends HTMLElement {
                                     <a class="nav__link" href="/pages/profile.html">
                                         <span class="nav__user-name" data-user-name></span>
                                     </a>
-                                    <button class="nav__logout" type="button" aria-label="Log out">Logout</button>
+                                <button class="nav__logout" type="button" aria-label="Log out">Logout</button>
                                 </li>
                             </ul>
                         </nav>
@@ -203,18 +205,21 @@ class PrasisHeader extends HTMLElement {
     const t = e.target;
     if (!(t instanceof Element)) return;
 
-    const clickedToggle = t.closest(".site-header__toggle");
     const insideNav = t.closest(`#${this._navId}`);
 
-    if (clickedToggle) {
-      nav.hidden ? this.openNav() : this.closeNav();
-      return;
-    }
+    // Ignore clicks on the toggle; the header's click handler will toggle
+    if (t.closest(".site-header__toggle")) return;
+
+    // Close if a link inside the nav is clicked
     if (insideNav && t.closest("a")) {
       this.closeNav();
       return;
     }
-    if (!insideNav && !nav.hidden) this.closeNav();
+
+    // Close on any click outside the nav
+    if (!insideNav && !nav.hidden) {
+      this.closeNav();
+    }
   };
 
   handleKeydown = (e) => {

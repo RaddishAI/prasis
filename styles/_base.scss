@@ -1,0 +1,61 @@
+@use "variables" as *;
+
+/* Bridge your theme to Bootstrap so its defaults match yours */
+:root {
+  --bs-body-bg: #{$color-bg};
+  --bs-body-color: #{$color-text};
+  /* Optional:
+     --bs-link-color: #0d6efd;
+     // or your accent:
+     // --bs-link-color: #{$color-accent};
+  */
+}
+
+/* Consistent page background and text color */
+html,
+body {
+  height: 100%;
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color);
+}
+
+/* Base typography & smoothing + sticky page layout */
+body {
+  margin: 0;
+  font-family: $font-sans;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Sticky layout: header | main (fills) | footer */
+  min-height: 100dvh; /* iOS-safe viewport height */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Ensure custom elements act as block rows in the grid */
+prasis-header,
+prasis-footer {
+  display: block;
+}
+
+/* Prevent long content from causing horizontal scroll */
+main {
+  min-width: 0;
+}
+
+/* Sensible defaults for media */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Let Bootstrap control link color; just refine underline */
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}

@@ -1,0 +1,7 @@
+@use "variables" as *;
+
+/* Center content with a max width and side padding */
+.container {
+  width: min(100% - 2rem, 1200px); /* 1rem padding on each side */
+  margin-inline: auto;
+}

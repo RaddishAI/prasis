@@ -11,7 +11,7 @@
  *
  * @constant {string}
  */
-const BASE_API_URL = "https://v2.api.noroff.dev";
+export const BASE_API_URL = "https://v2.api.noroff.dev";
 
 /**
  * !!!
@@ -88,7 +88,7 @@ export const API_KEY_STORAGE = "X-Noroff-API-Key";
  * @constant {string}
  */
 
-export const CART_STORAGE_KEY = "presis:cart";
+export const CART_STORAGE_KEY = "prasis:cart";
 
 /**
  * Custom event name when cart changes.

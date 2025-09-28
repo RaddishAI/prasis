@@ -1,0 +1,64 @@
+/* ===== Auth form (login/register) ===== */
+/* note to self: scoped classes so we don't fight Bootstrap */
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-row {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.auth-form label {
+  font-weight: 600;
+}
+
+.input {
+  /* note to self: match style guide look */
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border: 2px solid #eba727; /* Accent */
+  border-radius: 8px;
+  background: #fff;
+  line-height: 1.2;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(235, 167, 39, 0.25); /* soft accent glow */
+  }
+}
+
+.error {
+  color: #9b6b42; /* Primary tone */
+  font-size: 0.9rem;
+}
+
+.form-status {
+  min-height: 1.25rem; /* note to self: reserve space to avoid layout jump */
+  font-size: 0.95rem;
+}
+
+/* Button look (modifier so Bootstrap .btn still applies) */
+.btn.btn--primary {
+  background: #9b6b42; /* Primary */
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

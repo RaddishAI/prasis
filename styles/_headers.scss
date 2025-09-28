@@ -1,0 +1,334 @@
+@use "variables" as *;
+
+/* !!1
+   DESKTOP-FIRST DEFAULTS (apply to size M–XL by default)
+   !!! */
+
+/* Header shell */
+.site-header {
+  background: $color-surface;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.site-header__inner {
+  min-height: 72px; /* was 64px */
+  gap: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.logo__img {
+  display: block;
+  height: 36px; /* tweak as needed */
+  width: auto;
+}
+
+/* Right cluster: toggle + nav */
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Toggle (hidden on desktop by default) */
+.site-header__toggle {
+  appearance: none;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  display: none; /* desktop default: hidden */
+}
+.site-header__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Nav: desktop inline */
+.site-header__nav {
+  /* if HTML sets [hidden], ignore it on desktop */
+}
+.site-header__nav[hidden] {
+  display: block !important; /* desktop: nav always visible */
+}
+
+/* Nav list & items */
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row; /* desktop inline */
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Links */
+.nav__link {
+  display: block;
+  text-decoration: none;
+  color: $color-text;
+  font-weight: 500;
+
+  /* single source of truth for hit-area */
+  padding-block: 0.5rem;
+  padding-inline: 0.25rem;
+
+  /* keyboard focus */
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* hover */
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+}
+
+/* Active/current state */
+.nav__link.is-active,
+.nav__link[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+/* Cart link & badge */
+.nav__link--cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__cart-badge {
+  display: inline-block;
+  min-width: 1.25em;
+  line-height: 1.25em;
+  font-size: 0.875rem;
+  text-align: center;
+  border-radius: 9999px;
+  padding-inline: 0.375em;
+  border: 1px solid currentColor; /* inherits text color */
+  flex: 0 0 auto; /* prevent shrinking in flex containers */
+}
+
+/* Logout button — match style-guide "Secondary" */
+.nav__logout {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.1;
+  font-weight: 600;
+  background: $color-surface;
+  color: $color-text;
+  border: 2px solid $color-accent; /* thicker accent border */
+  border-radius: 0.75rem; /* softer corners */
+  cursor: pointer;
+  transition: background-color 150ms ease, box-shadow 150ms ease,
+    border-color 150ms ease;
+
+  &:hover {
+    background: mix($color-accent, $color-surface, 10%);
+    text-decoration: none;
+  }
+
+  /* smoother focus ring that follows the radius */
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.35);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Optional JS hook */
+.site-header__nav[data-open="true"] {
+  display: block;
+}
+
+/* !!!
+   MOBILE OVERRIDES (size s) (≤ 767px)
+   !!! */
+
+@media (max-width: 767px) {
+  /* show the toggle on mobile */
+  .site-header__toggle {
+    display: inline-block;
+  }
+
+  /* respect [hidden] on mobile (JS will remove when opening) */
+  .site-header__nav[hidden] {
+    display: none !important;
+  }
+
+  /* full-width nav under header row */
+  .site-header__nav {
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 0.25rem;
+  }
+
+  /* stack items vertically */
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+  }
+
+  /* larger touch target */
+  .nav__link {
+    padding-block: 0.75rem;
+  }
+
+  /* header alignment when nav stacks */
+  .site-header__inner {
+    align-items: center; /* center logo + menu vertically */
+    min-height: 64px; /* consistent bar height on mobile */
+  }
+
+  /* auth row nicety */
+  .nav__item--auth {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+:where(.site-header) button[aria-controls]:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+:where(.site-header) button[aria-controls]:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+:where(.site-header) button[aria-controls]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* If you render an icon inside the button */
+:where(.site-header) button[aria-controls] svg {
+  inline-size: 1.1em;
+  block-size: 1.1em;
+}
+
+/* Mobile: style the header toggle as a secondary button */
+@media (max-width: 767px) {
+  .site-header__toggle {
+    appearance: none;
+    background: transparent;
+    color: $color-text;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 999px;
+    padding: 0.5rem 0.9rem;
+    line-height: 1;
+    font: inherit;
+    font-weight: 600;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .site-header__toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .site-header__toggle:active {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .site-header__toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .site-header__toggle svg {
+    inline-size: 1.1em;
+    block-size: 1.1em;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-header__toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: transparent !important;
+    color: $color-text !important;
+    border: 2px solid $color-text !important; /* bold, easy to see */
+    border-radius: 999px !important;
+    padding: 0.5rem 0.9rem !important;
+    line-height: 1 !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Mobile: make the nav a dropdown panel anchored to the toggle */
+@media (max-width: 767px) {
+  .site-header__right {
+    position: relative; /* anchor for absolute dropdown */
+  }
+
+  /* When the nav is shown (JS removes [hidden]) it appears as a floating panel */
+  .site-header__nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: max-content; /* fit to content */
+    min-width: 220px; /* but not too tiny */
+    max-height: min(60vh, 480px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    background: $color-surface;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 0.5rem; /* panel padding */
+    z-index: 1000;
+
+    /* override earlier mobile "full-width under header" style */
+    border-top: 0;
+    padding-top: 0.5rem;
+  }
+
+  /* Make each item look clean inside the panel */
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .nav__link {
+    padding: 0.625rem 0.75rem;
+    border-radius: 8px;
+  }
+  .nav__link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+  }
+
+  /* Auth row spacing inside the panel */
+  .nav__item--auth {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.25rem 0;
+  }
+}

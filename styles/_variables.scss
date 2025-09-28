@@ -1,0 +1,23 @@
+// Colors
+$color-bg: #fffbf3 !default; // background
+$color-surface: #ffffff !default; // cards/header/footer
+$color-text: #1a1a1a !default; // body text
+$color-primary: #986b42 !default; // brand brown
+$color-secondary: #ae9774 !default; // secondary
+$color-accent: #eba727 !default; // gold accent
+
+$color-muted: rgba(0, 0, 0, 0.6);
+
+// Typography
+$font-serif: "Playfair Display", ui-serif, Georgia, serif;
+$font-sans: "Source Sans Pro", ui-sans-serif, system-ui, -apple-system,
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans",
+  sans-serif;
+
+// Spacing scale
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
