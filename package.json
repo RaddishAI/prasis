@@ -1,0 +1,15 @@
+{
+  "name": "prasis",
+  "version": "1.0.0",
+  "description": "**Prasis** is a student project developed as part of the frontend curriculum at Noroff - School of Technology and Digital Media.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}

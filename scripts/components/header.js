@@ -82,7 +82,7 @@ class PrasisHeader extends HTMLElement {
     const logoSrc = this.getAttribute("logo-src") || "/assets/prasis_logo.svg";
     const homeHref = this.getAttribute("home-href") || "/index.html";
 
-    this.innerHTML = `
+    this.innerHTML = /* html */ `
               <header class="site-header" role="banner" data-component="header">
                   <div class="container site-header__inner">
                       <div class="site-header__left">
